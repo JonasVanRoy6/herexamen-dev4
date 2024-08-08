@@ -24,7 +24,7 @@
             <?php include 'takendone.php'; ?>
         </div>
     </div>
-    <script src="script.js"></script>
+
 </body>
 
 </html>
