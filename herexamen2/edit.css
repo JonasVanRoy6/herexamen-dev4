@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #007bff;
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.todo-item.done .todo-text {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.todo-text {
+    cursor: pointer;
+}
+
+.edit-form,
+.delete-form {
+    display: inline;
+}
+
+.edit-form input,
+.edit-form button,
+.delete-form button {
+    margin-left: 5px;
+}

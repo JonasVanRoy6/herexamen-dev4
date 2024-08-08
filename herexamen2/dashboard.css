@@ -1,0 +1,54 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 300px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    color: #4169E1;
+    font-size: 20px;
+}
+
+h2 {
+    color:#4169E1;
+    border-bottom: 1px solid #eee;
+    background-color: #edeceb;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-size: 0.8em;
+    align-items: center;
+}
+
+.task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.task.done .description {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.checkmark {
+    cursor: pointer;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    margin-left: 30%;
+
+}
+
+.header a{
+    text-decoration: none;
+    color: #4169E1;
+}
