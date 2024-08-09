@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 		// Voer de query uit en controleer of deze is geslaagd
 		if ($stmt->execute() === TRUE) {
-			header("Location: signlog.html");
+			header("Location: index.html");
 			$status_message = 'Account succesvol aangemaakt!';
 		} else {
 			$status_message = 'Fout bij aanmaken account: ' . $stmt->error;

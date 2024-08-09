@@ -5,6 +5,13 @@
     <meta charset="UTF-8">
     <title>New Todo</title>
     <link rel="stylesheet" href="aanmakentodo.css">
+    <style>
+        .feedback {
+            color: red;
+            font-size: small;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -27,6 +34,14 @@
 
             <button type="submit">Save</button>
         </form>
+
+        <!-- Weergave van de feedbackmelding -->
+        <?php
+        if (isset($_GET['feedback'])) {
+            $feedback = htmlspecialchars($_GET['feedback']);
+            echo '<div class="feedback">' . $feedback . '</div>';
+        }
+        ?>
     </div>
     <script>
         document.getElementById('due_timeToggle').addEventListener('change', function () {

@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 			// Controleer of het login succesvol was
 			if ($total > 0) {
-				echo '<script>alert("Login successful"); window.location.href = "dashboard.php";</script>';
+				echo '<script> window.location.href = "dashboard.php";</script>';
 			} else {
 				echo '<script>alert("Login failed");</script>';
 			}
