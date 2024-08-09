@@ -2,29 +2,87 @@ body {
     font-family: Arial, sans-serif;
 }
 .container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 300px;
+    height: 32rem;
+    margin: 0 auto;
+    background-color: white;
+    border: 2px solid grey;
+    border-radius: 10px;
+    
 }
-.container input[type="text"], .container input[type="datetime-local"] {
+.container input[type="text"],
+.container input[type="datetime-local"],
+.container select {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-sizing: border-box;
+    
 }
+
 .container input[type="checkbox"] {
     margin-right: 10px;
 }
+
 .container button {
     width: 100%;
     padding: 10px;
-    background-color: #28a745;
+    background-color: #4169E1;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 20px;
+}
+
+a{
+    text-decoration: none;
+    color: #4169E1;
+    font-size: 15px;
+    
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -8%;
+    padding-right: 10%;
+}
+
+h1{
+    text-align: center;
+    font-size: 18px;
+    margin-left: 40%;
+    color: #4169E1;
+}
+
+svg{
+    max-width: 300px;
+}
+
+#status{
+    border-color: #ccc;
+    border-radius: 10px;
+    padding: 2px;
+}
+
+form{
+    margin-left: 10%;
+    margin-right: 10%;
+    
+}
+
+
+#todoForm{
+    margin-top: 10%;
+}
+
+
+.feedback {
+    color: red;
+    font-size: small;
+    margin-top: 10px;
 }

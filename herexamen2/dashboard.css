@@ -1,16 +1,22 @@
 body {
     font-family: Arial, sans-serif;
+    
 }
 
 .container {
     width: 300px;
+    height: 32rem;
     margin: 0 auto;
+    background-color: white;
+    border: 2px solid grey;
+    border-radius: 10px;
+    
 }
 
 h1 {
     text-align: center;
     color: #4169E1;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 h2 {
@@ -44,27 +50,115 @@ h2 {
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    margin-left: 30%;
+    margin-left: 35%;
+    margin-top: -8%;
+    margin-right: 10%;
 
 }
 
 .header a{
     text-decoration: none;
     color: #4169E1;
-}
-.remaining-days{
-	font-size: 10px;
+    font-size: 15px;
 }
 
-.new-comment{
-	max-width: 20px;
+
+.task {
     display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
 }
 
-.add-comment{
-    border-color: #4169E1;
-    border-radius: 20px;
-    background-color: #4169E1;
+.task-header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.checkmark {
+    
+    cursor: pointer;
+    font-size: 18px;
+    
+}
+
+.description {
+    flex: 1;
+    
+    font-size: 16px;
+}
+
+.remaining-days {
     font-size: 10px;
+    color: #555;
+    margin-right: 10px;
+    
+}
+
+.delete-btn {
+    background-color: white;
+    color: red;
+    border: 1px solid red;
+    border-radius: 20px;
+    
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background-color: red;
     color: white;
+}
+
+.comments {
+   
+    font-size: 12px;
+}
+
+.new-comment {
+    width: 100%;
+    
+}
+
+.add-comment {
+    margin-top: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.add-comment:hover {
+    background-color: #45a049;
+}
+
+.show-comment-btn {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.show-comment-btn:hover {
+    background-color: #0056b3;
+}
+
+.new-comment-section {
+    display: none; /* Verborgen standaard */
+    margin-top: 10px;
+}
+
+.new-comment {
+    width: 100%;
+}
+
+
+svg{
+    max-width: 300px;
 }

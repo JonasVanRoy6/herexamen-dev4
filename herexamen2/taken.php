@@ -33,8 +33,10 @@ if ($result->num_rows > 0) {
         $dueTime = $row["due_time"];
 
         // HTML-output
-        echo '<div class="task" data-id="' . $row["id"] . '">
-                <span class="description">' . htmlspecialchars($row["description"]) . '</span>';
+        echo '<div class="task" data-id="' . $row["id"] . '">';
+        echo '<div class="task-header">';
+        echo '<span class="checkmark" onclick="updateTaskStatus(' . $row["id"] . ', \'done\')">✔️</span>';
+        echo '<span class="description">' . htmlspecialchars($row["description"]) . '</span>';
 
         if (!empty($dueTime) && DateTime::createFromFormat('Y-m-d H:i:s', $dueTime) !== false) {
             // Bereken het aantal resterende dagen als er een vervaldatum is
@@ -46,13 +48,13 @@ if ($result->num_rows > 0) {
                   <span class="remaining-days">';
 
             if ($daysRemaining > 0) {
-                echo 'Nog ' . $daysRemaining . ' dagen te gaan';
+                echo '(Nog ' . $daysRemaining . ' dagen)';
             } elseif ($daysRemaining == 0) {
-                echo 'Vandaag is de deadline';
+                echo '(Vandaag)';
             } elseif ($daysRemaining < 70000) {
-                echo 'Geen datum';
+                echo '(Geen datum)';
             } else {
-                echo 'De deadline is ' . abs($daysRemaining) . ' dagen verstreken';
+                echo '(' . abs($daysRemaining) . ' dagen verstreken)';
             }
 
             echo '</span>';
@@ -61,8 +63,8 @@ if ($result->num_rows > 0) {
             echo '<span class="due-date" style="display:none;">Geen vervaldatum opgegeven</span>';
         }
 
-        echo '<span class="checkmark" onclick="updateTaskStatus(' . $row["id"] . ', \'done\')">✔️</span>
-              <button class="delete-btn" data-id="' . $row["id"] . '">Verwijder</button>';
+        echo '<button class="delete-btn" data-id="' . $row["id"] . '">Verwijder</button>';
+        echo '</div>'; // sluit .task-header
 
         // Commentaren ophalen voor deze taak
         $taskId = $row["id"];
@@ -79,11 +81,17 @@ if ($result->num_rows > 0) {
         }
         echo '</div>';
 
-        // Inputveld voor nieuwe commentaren
-        echo '<textarea class="new-comment"></textarea>
-              <input type="hidden" name="tasks_id" class="task-id" value="' . $row['id'] . '">
-              <button class="add-comment">Voeg commentaar toe</button>
+        // Knop om commentaarsectie te tonen
+        echo '<button class="show-comment-btn" onclick="toggleCommentSection(' . $row["id"] . ')">Voeg commentaar toe</button>';
+
+        // Verborgen commentaarsectie
+        echo '<div class="new-comment-section" id="comment-section-' . $row["id"] . '">
+                <textarea class="new-comment"></textarea>
+                <input type="hidden" name="tasks_id" class="task-id" value="' . $row['id'] . '">
+                <button class="add-comment">Voeg commentaar toe</button>
               </div>';
+
+        echo '</div>'; // sluit .task
     }
 } else {
     echo "No tasks found.";
@@ -91,3 +99,14 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
+
+<script>
+    function toggleCommentSection(taskId) {
+        var commentSection = document.getElementById('comment-section-' + taskId);
+        if (commentSection.style.display === "none" || commentSection.style.display === "") {
+            commentSection.style.display = "block";
+        } else {
+            commentSection.style.display = "none";
+        }
+    }
+</script>
