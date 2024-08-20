@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TODO APP</title>
-    <link rel="stylesheet" href="dashboard.css?v=1.0">
+    <link rel="stylesheet" href="dashboard.css">
 </head>
 
 <body>
@@ -44,9 +44,20 @@
                 fill="black" />
         </svg>
         <div class="header">
+            <a href="manage_files.php"> Files</a>
             <h1>TODO APP</h1>
             <a href="todoaanmaken.php"> Add</a>
         </div>
+        <p>Sorteren op:</p>
+        <select id="sort-options" onchange="sortTasks()">
+
+            <option value="description_asc">Beschrijving (Oplopend)</option>
+            <option value="description_desc">Beschrijving (Aflopend)</option>
+            <option value="due_time_asc">Vervaldatum (Oplopend)</option>
+            <option value="due_time_desc">Vervaldatum (Aflopend)</option>
+        </select>
+
+
         <h2>Not Done</h2>
         <div id="not-done-tasks">
             <?php include 'taken.php'; ?>
@@ -56,7 +67,47 @@
         <div id="done-tasks">
             <?php include 'takendone.php'; ?>
         </div>
+        <h2>Tasks with Files</h2>
+        <div id="tasks-with-files">
+            <?php
+            $conn = new mysqli($servername, $username, $password, $dbname);
+
+            $sql = "SELECT t.id, t.description, COUNT(f.id) as file_count
+            FROM tasks t
+            LEFT JOIN files f ON t.id = f.task_id
+            GROUP BY t.id";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<div class='task-item'>";
+                    echo "<p>" . htmlspecialchars($row["description"]) . " - Files: " . $row["file_count"] . "</p>";
+                    if ($row["file_count"] > 0) {
+                        echo "<a href='manage_files.php'>Manage Files</a>";
+                    }
+                    echo "</div>";
+                }
+            } else {
+                echo "No tasks with files.";
+            }
+
+            $conn->close();
+            ?>
+        </div>
     </div>
+    <script>
+        function sortTasks() {
+            var select = document.getElementById("sort-options");
+            var selectedOption = select.value;
+
+            // Voeg de geselecteerde optie toe aan de URL als query parameter
+            var currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set('sortOption', selectedOption);
+
+            // Laad de nieuwe URL om de gesorteerde taken te tonen
+            window.location.href = currentUrl.href;
+        }
+    </script>
 
 </body>
 

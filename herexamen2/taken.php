@@ -16,15 +16,32 @@ if ($conn->connect_error) {
 // Huidige datum
 $currentDate = new DateTime();
 
-// SQL-query om taken op te halen en te sorteren op vervaldatum
+// Verkrijg de sorteeroptie uit de URL (standaard op 'due_time_asc' als geen optie is geselecteerd)
+$sortOption = isset($_GET['sortOption']) ? $_GET['sortOption'] : 'due_time_asc';
+
+// Bepaal de ORDER BY clausule op basis van de sorteeroptie
+switch ($sortOption) {
+    case 'description_asc':
+        $orderBy = 'description ASC';
+        break;
+    case 'description_desc':
+        $orderBy = 'description DESC';
+        break;
+    case 'due_time_asc':
+        $orderBy = 'CASE WHEN due_time IS NULL OR due_time = \'\' THEN \'9999-12-31\' ELSE due_time END ASC';
+        break;
+    case 'due_time_desc':
+        $orderBy = 'CASE WHEN due_time IS NULL OR due_time = \'\' THEN \'9999-12-31\' ELSE due_time END DESC';
+        break;
+    default:
+        $orderBy = 'CASE WHEN due_time IS NULL OR due_time = \'\' THEN \'9999-12-31\' ELSE due_time END ASC';
+}
+
+// SQL-query om taken op te halen en te sorteren
 $sql = "SELECT id, description, due_time 
         FROM tasks 
         WHERE status='not_done' 
-        ORDER BY 
-            CASE 
-                WHEN due_time IS NULL OR due_time = '' THEN '9999-12-31' 
-                ELSE due_time 
-            END ASC";
+        ORDER BY $orderBy";
 
 $result = $conn->query($sql);
 
@@ -100,13 +117,4 @@ if ($result->num_rows > 0) {
 $conn->close();
 ?>
 
-<script>
-    function toggleCommentSection(taskId) {
-        var commentSection = document.getElementById('comment-section-' + taskId);
-        if (commentSection.style.display === "none" || commentSection.style.display === "") {
-            commentSection.style.display = "block";
-        } else {
-            commentSection.style.display = "none";
-        }
-    }
-</script>
+<script src="script.js"></script>

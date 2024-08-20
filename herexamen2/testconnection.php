@@ -1,18 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "herexamen";
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Comments</title>
-</head>
+// Maak verbinding met de MySQL database
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-<body>
-    <form method="POST" action="add_comment.php">
-        <input type="text" name="tasks_id" placeholder="Task ID" value="1">
-        <input type="text" name="comment" placeholder="Comment" value="Test comment">
-        <button type="submit">Submit</button>
-    </form>
-</body>
+// Controleer de verbinding
+if ($conn->connect_error) {
+    die("Verbinding mislukt: " . $conn->connect_error);
+}
 
-</html>
+echo "Verbinding geslaagd!<br>";
+
+// Test query om de eerste 5 rijen op te halen
+$sql = "SELECT * FROM tasks LIMIT 5";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo "id: " . $row["id"] . " - Title: " . $row["description"] . " - Deadline: " . $row["due_time"] . "<br>";
+    }
+} else {
+    echo "Geen resultaten gevonden.";
+}
+
+$conn->close();
+?>
