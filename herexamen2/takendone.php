@@ -19,10 +19,11 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo '<div class="task done" data-id="' . $row["id"] . '">
-                <span class="description">' . htmlspecialchars($row["description"]) . ' (Due: ' . htmlspecialchars($row["due_time"]) . ')</span>
-                <span class="checkmark" onclick="updateTaskStatus(' . $row["id"] . ', \'not_done\')">✔️</span>
-                <button class="delete-btn" data-id="' . $row["id"] . '">Verwijder</button>
-              </div>';
+        <span class="description">' . htmlspecialchars($row["description"]) . ' (Due: ' . htmlspecialchars($row["due_time"]) . ')</span>
+        <img src="images\checkmark.svg.png" alt="Mark as not done" class="checkmark" onclick="updateTaskStatus(' . $row["id"] . ', \'not_done\')">
+        <button class="delete-btn" data-id="' . $row["id"] . '">Verwijder</button>
+      </div>';
+
     }
 } else {
     echo "No tasks found.";

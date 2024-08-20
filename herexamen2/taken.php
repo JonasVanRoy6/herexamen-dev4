@@ -52,8 +52,9 @@ if ($result->num_rows > 0) {
         // HTML-output
         echo '<div class="task" data-id="' . $row["id"] . '">';
         echo '<div class="task-header">';
-        echo '<span class="checkmark" onclick="updateTaskStatus(' . $row["id"] . ', \'done\')">✔️</span>';
+        echo '<img src="images\checkmark.svg.png" alt="Mark as done" class="checkmark" onclick="updateTaskStatus(' . $row["id"] . ', \'done\')">';
         echo '<span class="description">' . htmlspecialchars($row["description"]) . '</span>';
+
 
         if (!empty($dueTime) && DateTime::createFromFormat('Y-m-d H:i:s', $dueTime) !== false) {
             // Bereken het aantal resterende dagen als er een vervaldatum is

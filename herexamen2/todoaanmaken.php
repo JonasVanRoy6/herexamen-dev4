@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>New Todo</title>
-    <link rel="stylesheet" href="aanmakentodo.css?v=1.0">
+    <link rel="stylesheet" href="aanmakentodo.css?v=2.0">
     <style>
         .feedback {
             color: red;

@@ -5,7 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TODO APP</title>
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="dashboard.css?v=2.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -48,15 +53,16 @@
             <h1>TODO APP</h1>
             <a href="todoaanmaken.php"> Add</a>
         </div>
-        <p>Sorteren op:</p>
-        <select id="sort-options" onchange="sortTasks()">
+        <div id="sorteren">
+            <p>Sorteren op:</p>
+            <select id="sort-options" onchange="sortTasks()">
 
-            <option value="description_asc">Beschrijving (Oplopend)</option>
-            <option value="description_desc">Beschrijving (Aflopend)</option>
-            <option value="due_time_asc">Vervaldatum (Oplopend)</option>
-            <option value="due_time_desc">Vervaldatum (Aflopend)</option>
-        </select>
-
+                <option value="description_asc">Beschrijving (Oplopend)</option>
+                <option value="description_desc">Beschrijving (Aflopend)</option>
+                <option value="due_time_asc">Vervaldatum (Oplopend)</option>
+                <option value="due_time_desc">Vervaldatum (Aflopend)</option>
+            </select>
+        </div>
 
         <h2>Not Done</h2>
         <div id="not-done-tasks">
@@ -95,6 +101,7 @@
             ?>
         </div>
     </div>
+
     <script>
         function sortTasks() {
             var select = document.getElementById("sort-options");
@@ -107,7 +114,23 @@
             // Laad de nieuwe URL om de gesorteerde taken te tonen
             window.location.href = currentUrl.href;
         }
+        // Toggle de zichtbaarheid van de commentaarsectie
+        function toggleCommentSection(taskId) {
+            var section = document.getElementById('comment-section-' + taskId);
+            if (section.style.display === 'none' || section.style.display === '') {
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+            }
+        }
+
+        // Event listeners kunnen hier worden toegevoegd, indien nodig
+        document.addEventListener('DOMContentLoaded', function () {
+            // Voorbeeld: Voeg event listeners toe aan knoppen, als nodig
+        });
+
     </script>
+
 
 </body>
 
