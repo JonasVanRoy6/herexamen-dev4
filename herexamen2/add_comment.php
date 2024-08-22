@@ -3,13 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 try {
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "herexamen";
-
-    // Maak verbinding met de MySQL database via MySQLi
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    include 'db_connection.php';
 
     // Controleer of de verbinding succesvol is
     if ($conn->connect_error) {

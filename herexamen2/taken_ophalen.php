@@ -1,16 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "herexamen";
-
-// Maak een verbinding met de database
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Controleer de verbinding
-if ($conn->connect_error) {
-    die("Verbinding mislukt: " . htmlspecialchars($conn->connect_error));
-}
+include 'db_connection.php';
 echo "Taken_ophalen.php wordt uitgevoerd.<br>";
 
 // Controleer of de sorteeroptie is doorgegeven en valideren

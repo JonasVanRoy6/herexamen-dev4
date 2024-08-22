@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TODO APP</title>
-    <link rel="stylesheet" href="dashboard.css?v=2.0">
+    <link rel="stylesheet" href="dashboard.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -57,8 +57,8 @@
             <p>Sorteren op:</p>
             <select id="sort-options" onchange="sortTasks()">
 
-                <option value="description_asc">Beschrijving (Oplopend)</option>
-                <option value="description_desc">Beschrijving (Aflopend)</option>
+                <option value="description_asc">Naam (Oplopend)</option>
+                <option value="description_desc">Naam (Aflopend)</option>
                 <option value="due_time_asc">Vervaldatum (Oplopend)</option>
                 <option value="due_time_desc">Vervaldatum (Aflopend)</option>
             </select>
@@ -73,10 +73,11 @@
         <div id="done-tasks">
             <?php include 'takendone.php'; ?>
         </div>
+
         <h2>Tasks with Files</h2>
         <div id="tasks-with-files">
             <?php
-            $conn = new mysqli($servername, $username, $password, $dbname);
+            include 'db_connection.php';
 
             $sql = "SELECT t.id, t.description, COUNT(f.id) as file_count
             FROM tasks t

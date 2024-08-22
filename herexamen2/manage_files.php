@@ -2,16 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "herexamen";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'db_connection.php';
 
 // Verwerk het uploadformulier
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["file"]) && isset($_POST["task_id"])) {
@@ -131,7 +122,7 @@ $conn->close();
             <select name="task_id" id="task">
                 <?php
                 // Verbind met de database
-                $conn = new mysqli($servername, $username, $password, $dbname);
+                include 'db_connection.php';
                 $result = $conn->query("SELECT id, description FROM tasks WHERE status='not_done'");
 
                 if ($result->num_rows > 0) {
@@ -152,7 +143,7 @@ $conn->close();
         <div id="attached-files">
             <?php
             // Toont alle bestanden en geeft de mogelijkheid om ze te verwijderen
-            $conn = new mysqli($servername, $username, $password, $dbname);
+            include 'db_connection.php';
 
             $sql = "SELECT f.id, f.file_name, f.file_path, t.description FROM files f
                 JOIN tasks t ON f.task_id = t.id
@@ -163,7 +154,7 @@ $conn->close();
                 while ($row = $result->fetch_assoc()) {
                     echo "<div class='file-item'>";
                     echo "<p><a href='" . htmlspecialchars($row["file_path"]) . "'>" . htmlspecialchars($row["file_name"]) . "</a> (Task: " . htmlspecialchars($row["description"]) . ")</p>";
-                    echo "<a href='manage_files.php?delete=" . $row["id"] . "' onclick='return confirm(\"Are you sure?\");'>Delete</a>";
+                    echo "<a class='delete' href='manage_files.php?delete=" . $row["id"] . "' onclick='return confirm(\"Are you sure?\");'>Delete</a>";
                     echo "</div>";
                 }
             } else {

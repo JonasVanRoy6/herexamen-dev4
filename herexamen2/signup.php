@@ -9,37 +9,27 @@ $status_message = '';
 // Verwerk de formulierinvoer
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-	$servername = "localhost";
-	$username = "root";
-	$password = "";
-	$dbname = "herexamen";
-
-	// Maak verbinding met de MySQL database
-	$conn = new mysqli($servername, $username, $password, $dbname);
-
-	// Controleer de verbinding
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}
+	include 'db_connection.php';
 
 	// Ontvang de waarden van het formulier
 	if (isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["password"])) {
-		$name = $_POST["name"];
-		$email = $_POST["email"];
-		$password = $_POST["password"];
-		$salt = "herexamen";
-		$password_encrypted = sha1($password . $salt);
+		$name = trim($_POST["name"]);
+		$email = trim($_POST["email"]);
+		$password = trim($_POST["password"]);
+
+		// Hash het wachtwoord met bcrypt
+		$password_hashed = password_hash($password, PASSWORD_BCRYPT);
 
 		// Bereid de SQL query voor
 		$stmt = $conn->prepare("INSERT INTO signup (name, email, password) VALUES (?, ?, ?)");
 		if ($stmt === false) {
 			die("Prepare failed: " . $conn->error);
 		}
-		$stmt->bind_param("sss", $name, $email, $password_encrypted);
+		$stmt->bind_param("sss", $name, $email, $password_hashed);
 
 		// Voer de query uit en controleer of deze is geslaagd
 		if ($stmt->execute() === TRUE) {
-			header("Location: index.html");
+			header("Location: index.php");
 			$status_message = 'Account succesvol aangemaakt!';
 		} else {
 			$status_message = 'Fout bij aanmaken account: ' . $stmt->error;
